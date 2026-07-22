@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Directorio Staff HU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #6d597a;
+    --navy-soft: #2C74E0;
+    --gold: #eaac8b;
+    --gold-light: #f0d98d;
+    --bg: #F4F6FB;
+    --surface: #FFFFFF;
+    --text: #1A202C;
+    --muted: #718096;
+    --border: #E2E8F0;
+    --radius: 12px;
+  }
+
+  html{scroll-behavior:smooth;}
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--navy);
+    background-image: linear-gradient(160deg, var(--navy) 0%, var(--navy-soft) 100%);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(13,27,42,.4);
+  }
+
+  .header-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 24px 32px 20px;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-mark {
+    width: 48px; height: 48px;
+    background: var(--gold);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 17px; color: var(--navy);
+    letter-spacing: -1px;
+    flex: none;
+  }
+
+  .brand-text h1 {
+    font-size: 22px; font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .brand-text p {
+    font-size: 12px; color: #8899AA;
+    margin-top: 3px; letter-spacing: .5px; text-transform: uppercase;
+  }
+
+  .stats {
+    display: flex; gap: 10px;
+  }
+
+  .stat-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,.3);
+    border-radius: 100px;
+    padding: 8px 18px;
+    text-align: center;
+  }
+
+  .stat-pill .num {
+    display: block; font-size: 19px; font-weight: 700; color: var(--gold);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-pill .lbl {
+    display: block; font-size: 9.5px; color: #8899AA;
+    text-transform: uppercase; letter-spacing: .5px; margin-top: 3px;
+  }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    margin-top: 16px;
+    position: relative;
+  }
+
+  .search-wrap input {
+    width: 100%; padding: 12px 44px 12px 46px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    color: white; font-size: 14px; outline: none;
+    font-family: 'Inter', sans-serif;
+    transition: border-color .2s, background .2s;
+  }
+
+  .search-wrap input::placeholder { color: #607080; }
+  .search-wrap input:focus {
+    border-color: var(--gold);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .search-icon {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    font-size: 16px; pointer-events: none;
+    opacity: .8;
+  }
+
+  .clear-icon{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    width:24px; height:24px; border-radius:50%; border:none;
+    background:transparent; color:#8899AA; cursor:pointer;
+    display:none; align-items:center; justify-content:center; font-size:15px;
+  }
+  .clear-icon:hover{background:rgba(255,255,255,0.12); color:#fff;}
+
+  /* ── FILTER PILLS ── */
+  .filter-bar {
+    max-width: 1300px; margin: 24px auto 0;
+    padding: 0 32px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+
+  .filter-pill {
+    display:inline-flex; align-items:center; gap:6px;
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 500;
+    border: 1.5px solid var(--border);
+    background: var(--surface); color: var(--muted);
+    cursor: pointer; transition: all .15s;
+    white-space: nowrap;
+    font-family:'Inter',sans-serif;
+  }
+
+  .filter-pill:hover { border-color: var(--gold); color: var(--navy); }
+  .filter-pill.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .filter-pill .n{opacity:.65; font-size:10.5px;}
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 1300px; margin: 32px auto 48px;
+    padding: 0 32px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+
+  /* ── AREA SECTION ── */
+  .area-section { background: var(--surface); border-radius: var(--radius); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+  .area-section.hidden{display:none;}
+
+  .area-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    flex-wrap: wrap; gap: 10px;
+  }
+
+  .area-title {
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .area-icon { font-size: 20px; }
+
+  .area-header h2 {
+    font-size: 15px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px;
+  }
+
+  .badge {
+    color: white; font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; }
+
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead th {
+    background: #F7F9FC;
+    color: var(--muted); font-weight: 600;
+    font-size: 11px; text-transform: uppercase; letter-spacing: .6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  .contact-row { transition: background .15s; }
+  .contact-row.hidden{display:none;}
+  .contact-row:hover { background: #F0F4FF; }
+
+  .contact-row td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  .contact-row:last-child td { border-bottom: none; }
+
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: white;
+    flex-shrink: 0;
+    font-family:'Inter',sans-serif;
+  }
+
+  .nombre { font-weight: 600; color: var(--text); }
+  .rol { color: var(--muted); font-size: 12px; }
+
+  .contact-link {
+    color: #2B6CB0; text-decoration: none; font-size: 12px;
+    white-space: nowrap;
+    transition: color .15s;
+  }
+  .contact-link:hover { color: var(--gold); text-decoration: underline; }
+
+  .no-data { color: #CBD5E0; }
+
+  .dept {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: .2px;
+  }
+
+  mark{
+    background: rgba(201,168,76,.35);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 1px;
+  }
+
+  #empty-state{
+    display:none;
+    text-align:center;
+    padding: 70px 20px;
+    color: var(--muted);
+  }
+  #empty-state .glyph{ font-size: 30px; margin-bottom: 10px; }
+  #empty-state p{ font-size: 14px; margin: 4px 0; }
+  #empty-state .hint{ font-size: 12.5px; color: #A0AEC0; }
+
+  footer{
+    text-align:center;
+    padding: 0 20px 40px;
+    color: #A0AEC0;
+    font-size: 11.5px;
+  }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .header-inner, .filter-bar, .main { padding: 0 16px; }
+    .header-inner{padding-top:18px; padding-bottom:16px;}
+    .stats { gap: 8px; }
+    .stat-pill{padding:6px 12px;}
+    .stat-pill .num { font-size: 15px; }
+    .brand-text h1{font-size:19px;}
+    table{ font-size: 12.5px; min-width: 640px; }
+
+    .table-wrap{
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+    .table-wrap::after{
+      content:"";
+      position:absolute; top:0; right:0; bottom:0; width:22px;
+      background:linear-gradient(90deg, transparent, rgba(0,0,0,.06));
+      pointer-events:none;
+    }
+    
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="brand">
+        <div class="logo-mark">HU</div>
+        <div class="brand-text">
+          <h1>Directorio Staff</h1>
+          <p>Contactos internos · México</p>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-pill">
+          <span class="num" id="stat-total">0</span>
+          <span class="lbl">Contactos</span>
+        </div>
+        <div class="stat-pill">
+          <span class="num" id="stat-areas">0</span>
+          <span class="lbl">Áreas</span>
+        </div>
+        <div class="stat-pill">
+          <span class="num" id="stat-phone">0</span>
+          <span class="lbl">Con teléfono</span>
+        </div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput" placeholder="Buscar por nombre, rol, departamento o teléfono…" type="text" autocomplete="off">
+      <button class="clear-icon" id="clearSearch" aria-label="Limpiar búsqueda">✕</button>
+    </div>
+  </div>
+</header>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<main class="main" id="mainContent"></main>
+
+<div id="empty-state">
+  <div class="glyph">🔎</div>
+  <p>No hay resultados</p>
+  <p class="hint">Intenta con otro nombre, área, departamento o teléfono</p>
+</div>
+
+<footer>Directorio Staff HU · actualizado al 08.06.2026</footer>
+
+<script>
+const DATA = [{"nm":"Rodrigo Ivan Matias Lima","ar":"ARQUITECTURA Y MANTENIMIENTO","dp":"","ps":"Gerente Arquitectura y Mantenimiento","em":"rodrigo.lima@bsg.global","tl":"5610045917"},{"nm":"Octavio Daniel Gonzalez Torres","ar":"ARQUITECTURA Y MANTENIMIENTO","dp":"","ps":"Analista Mantenimiento","em":"octavio.gonzalez@bsg.global","tl":"5585230330"},{"nm":"Mariana Santana Velazquez","ar":"ARQUITECTURA Y MANTENIMIENTO","dp":"","ps":"Analista Arquitectura","em":"mariana.santana@bsg.global","tl":"5548487120"},{"nm":"Maximiliano Brian Vazquez Ramos","ar":"ARQUITECTURA Y MANTENIMIENTO","dp":"","ps":"Analista Mantenimiento","em":"maximiliano.vazquez@bsg.global","tl":"5548487137"},{"nm":"Edson Nicolas Balderas","ar":"ARQUITECTURA Y MANTENIMIENTO","dp":"","ps":"Analista Mantenimiento","em":"edson.nicolas@bsg.global","tl":"5548906339"},{"nm":"Emiliano Reyes Balja","ar":"ARQUITECTURA Y MANTENIMIENTO","dp":"","ps":"Analista Arquitectura","em":"emiliano.reyes@bsg.global","tl":""},{"nm":"Javier Navarro Pedraza","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Visual Merchandising Lead","em":"javier.navarro@bsg.global","tl":"5548884577"},{"nm":"Tania Añorve Rodriguez","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Analista Trade Marketing","em":"tania.anorve@bsg.global","tl":"5580452438"},{"nm":"Ana Paula Cucagna","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Brand Manager","em":"ana.cucagna@bsg.global","tl":"5545159847"},{"nm":"Ivan Emilio Trejo de Jesus","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Diseñador Grafico","em":"ivan.trejo@bsg.global","tl":""},{"nm":"Diana Maciel Damian","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Social Media Manager","em":"diana.maciel@bsg.global","tl":"5548486962"},{"nm":"Lourdes Ivonne Bastida Hoyos","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Brand Manager","em":"ivonne.bastida@bsg.global","tl":"5520492110"},{"nm":"Jesus Sanchez Romero","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT ISA","ps":"Country Vm","em":"jesus.sanchez@bsg.global","tl":"5548486963"},{"nm":"Monica Garcia Antonio","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Analista Trade Marketing","em":"monica.garcia@bsg.global","tl":"5548486953"},{"nm":"Brenda Nadezhda Reyes Solares","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Diseñador Grafico","em":"brenda.reyes@bsg.global","tl":"5524795166"},{"nm":"Yuritza Adriana Gonzalez Ramirez","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Visual Merchandising Lead","em":"yuritza.gonzalez@bsg.global","tl":"6621445923"},{"nm":"Ariadna Elena Caracheo Cedillo","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Visual Merchandising Lead","em":"ariadna.caracheo@bsg.global","tl":"3312486529"},{"nm":"Yesua Ivan Macias Vera","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Analista Trade Marketing","em":"yesua.macias@bsg.global","tl":"5610045699"},{"nm":"Maria Fernanda Aburto Jimenez","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Analista Social Media","em":"maria.aburto@bsg.global","tl":""},{"nm":"Yolotzin Lopez Soria","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Analista Marketing","em":"yolotzin.lopez@bsg.global","tl":""},{"nm":"Samantha Orozco Valdez","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Live Host - Tiktok Shop","em":"samantha.orozco@bsg.global","tl":"5625715372"},{"nm":"Daniela Gomez Hernandez","ar":"BRAND MANAGEMENT","dp":"BRAND MANAGEMENT TM","ps":"Tik Tok Shop Lead","em":"daniela.gomez@bsg.global","tl":"5536669405"},{"nm":"Emelia Hernandez Alvarado","ar":"CAPITAL HUMANO","dp":"ADMINISTRACIÓN DE PERSONAL","ps":"Coordinador Administracion de Personal","em":"emelia.hernandez@bsg.global","tl":""},{"nm":"Lourdes Gabriela Diaz Atilano","ar":"CAPITAL HUMANO","dp":"ADMINISTRACIÓN DE PERSONAL","ps":"Auxiliar Capital Humano","em":"lourdes.diaz@bsg.global","tl":"5510687152"},{"nm":"Maria Fernanda Erazo Rosas","ar":"CAPITAL HUMANO","dp":"ADMINISTRACIÓN DE PERSONAL","ps":"Analista Administracion de Personal","em":"maria.erazo@bsg.global","tl":"5548486996"},{"nm":"Jose Antonio Moreno Alvarez","ar":"CAPITAL HUMANO","dp":"CAPACITACIÓN Y DESARROLLO","ps":"Analista Capacitacion y Do","em":"jose.moreno@bsg.global","tl":"5548487070"},{"nm":"Veronica Noriega Gonzalez","ar":"CAPITAL HUMANO","dp":"CAPACITACIÓN Y DESARROLLO","ps":"Analista Capacitacion y Do","em":"veronica.noriega@bsg.global","tl":""},{"nm":"Karla Elizabeth Fuentes Barrera","ar":"CAPITAL HUMANO","dp":"","ps":"Coordinadora Ex & Comunicacion Interna","em":"karla.fuentes@bsg.global","tl":"5548486993"},{"nm":"Ariatna Anhai Pastrana Villasana","ar":"CAPITAL HUMANO","dp":"","ps":"Analista Juridico Laboral","em":"ariatna.pastrana@bsg.global","tl":"2294178066"},{"nm":"Gabriela Guerrero Zendejas","ar":"CAPITAL HUMANO","dp":"","ps":"People Manager Sr","em":"gabriela.guerrero@bsg.global","tl":"5548487066"},{"nm":"Eulises Rodriguez Ruiz","ar":"CAPITAL HUMANO","dp":"CAPITAL HUMANO CEDIS","ps":"Hrbp Logistica","em":"eulises.rodriguez@bsg.global","tl":"5548487010"},{"nm":"Diana Silva Valerio","ar":"CAPITAL HUMANO","dp":"CAPITAL HUMANO RETAIL","ps":"Hrbp Retail","em":"diana.silva@bsg.global","tl":"5548487071"},{"nm":"Karina Torales Benitez","ar":"CAPITAL HUMANO","dp":"CAPITAL HUMANO RETAIL","ps":"Hrbp Retail","em":"karina.torales@bsg.global","tl":"5548486965"},{"nm":"Itzel Jasso Cruz","ar":"CAPITAL HUMANO","dp":"CAPITAL HUMANO RETAIL","ps":"Hrbp Retail","em":"itzel.jasso@bsg.global","tl":"5545159846"},{"nm":"Diana Laura Perez Reyes","ar":"CAPITAL HUMANO","dp":"GESTIÓN DE TALENTO","ps":"Analista Reclutamiento","em":"diana.perez@bsg.global","tl":"5580809310"},{"nm":"Ariadna Jaqueline Garcia Antonio","ar":"CAPITAL HUMANO","dp":"GESTIÓN DE TALENTO","ps":"Analista Reclutamiento","em":"ariadna.garcia@bsg.global","tl":"5548486917"},{"nm":"Josias Crisostomo Lumbreras","ar":"CAPITAL HUMANO","dp":"GESTIÓN DE TALENTO","ps":"Analista Reclutamiento","em":"josias.crisostomo@bsg.global","tl":"3339524997"},{"nm":"Miriam Andrea Dominguez Ruiz","ar":"CAPITAL HUMANO","dp":"GESTIÓN DE TALENTO","ps":"Analista Reclutamiento","em":"miriam.dominguez@bsg.global","tl":"4777243724"},{"nm":"Elizabeth Zavala Ortega","ar":"CAPITAL HUMANO","dp":"GESTIÓN DE TALENTO","ps":"Analista Reclutamiento","em":"elizabeth.zavala@bsg.global","tl":"5548486967"},{"nm":"Monica Elian Vazquez Ramirez","ar":"CAPITAL HUMANO","dp":"GESTIÓN DE TALENTO","ps":"Analista Reclutamiento","em":"monica.vazquez@bsg.global","tl":"5625528893"},{"nm":"Nair Manrique Martinez","ar":"CAPITAL HUMANO","dp":"NÓMINA","ps":"Coordinador Nomina","em":"nair.manrique@bsg.global","tl":""},{"nm":"Maria Sandra Herrera Villeda","ar":"CAPITAL HUMANO","dp":"NÓMINA","ps":"Analista Nomina","em":"maria.herrera@bsg.global","tl":""},{"nm":"Angelica Berenice Uribe Morales","ar":"CAPITAL HUMANO","dp":"NÓMINA","ps":"Analista Nomina","em":"angelica.uribe@bsg.global","tl":""},{"nm":"Karina Ramirez Raymundo","ar":"CAPITAL HUMANO","dp":"NÓMINA","ps":"Analista Nomina","em":"karina.ramirez@bsg.global","tl":""},{"nm":"Guadalupe Beatriz Olivares Guillen","ar":"CAPITAL HUMANO","dp":"NOMINA","ps":"Jefa de Nominas y Compensaciones","em":"guadalupe.olivares@bsg.global","tl":""},{"nm":"Joselyn Itzel del Angel Madrigal","ar":"CUSTOMER EXPERIENCE","dp":"","ps":"CXC Analyst","em":"joselyn.delangel@bsg.global","tl":"5585232157"},{"nm":"Hugo Ruben Arana Delgado","ar":"E-COMMERCE","dp":"","ps":"Analista E-Commerce","em":"hugo.arana@bsg.global","tl":"5611971168"},{"nm":"Miguel Angel Carrillo Serrano","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Supervisor Archivo/mesa de Control","em":"Miguel.Carrillo@bsg.global","tl":"5548486966"},{"nm":"Cynthia Monserrat Alvarez Ramirez","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Analista Cobranza","em":"cynthia.alvarez@bsg.global","tl":"5591859076"},{"nm":"Jesus Emmanuel Esquivel Ramon","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Analista Cobranza","em":"jesus.esquivel@bsg.global","tl":""},{"nm":"Tania Hernandez Juarez","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Analista Cobranza","em":"tania.hernandez@bsg.global","tl":"5591859067"},{"nm":"Maria Cristina Lopez Maciel","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Analista Cobranza","em":"maria.lopez@bsg.global","tl":"5548486981"},{"nm":"Miguel Angel Lopez Duran","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Analista Cobranza","em":"miguel.lopez@bsg.global","tl":""},{"nm":"Estefania Lira Pacheco","ar":"FINANZAS Y SERVICIOS","dp":"COBRANZA","ps":"Analista Cobranza","em":"estefania.lira@bsg.global","tl":"5585813430"},{"nm":"Nancy Lopez Sosa","ar":"FINANZAS Y SERVICIOS","dp":"COMPRAS","ps":"Comprador","em":"nancy.lopez@bsg.global","tl":"5548486978"},{"nm":"Maria Fernanda Aguilar Pulido","ar":"FINANZAS Y SERVICIOS","dp":"COMPRAS","ps":"Comprador","em":"maria.aguilar@bsg.global","tl":"5521073748"},{"nm":"Aleidys Ariadna Jimenez Monroy","ar":"FINANZAS Y SERVICIOS","dp":"COMPRAS","ps":"Comprador Jr","em":"aleidys.jimenez@bsg.global","tl":"6562609945"},{"nm":"Eliza Guzman Roque","ar":"FINANZAS Y SERVICIOS","dp":"CONTABILIDAD","ps":"Analista Viaticos","em":"eliza.guzman@bsg.global","tl":"5585236140"},{"nm":"Eric Constantino Estevez Guerrero","ar":"FINANZAS Y SERVICIOS","dp":"CONTABILIDAD","ps":"Jefe Contabilidad e Impuestos","em":"eric.estevez@bsg.global","tl":"5548487061"},{"nm":"Angel Lopez Valdez","ar":"FINANZAS Y SERVICIOS","dp":"CONTABILIDAD","ps":"Analista Contable Sr","em":"angel.lopez@bsg.global","tl":"5543519607"},{"nm":"Griselda Becerril Romero","ar":"FINANZAS Y SERVICIOS","dp":"CONTABILIDAD","ps":"Analista Contable","em":"griselda.becerril@bsg.global","tl":""},{"nm":"Mariana Lizbeth Ocampo Lezama","ar":"FINANZAS Y SERVICIOS","dp":"CONTABILIDAD","ps":"Analista Contable","em":"mariana.ocampo@bsg.global","tl":""},{"nm":"Irina Jetzemani Bustos Muñiz","ar":"FINANZAS Y SERVICIOS","dp":"CONTABILIDAD","ps":"Analista Contable","em":"irina.bustos@bsg.global","tl":""},{"nm":"Maria del Pilar Gomez Antonio","ar":"FINANZAS Y SERVICIOS","dp":"CONTROLLING","ps":"Coordinador Controlling","em":"pilar.gomez@bsg.global","tl":""},{"nm":"Jose de Jesus Mendoza Diaz","ar":"FINANZAS Y SERVICIOS","dp":"CUENTAS POR PAGAR","ps":"Analista Cuentas por Pagar","em":"jose.mendoza@bsg.global","tl":"5515374626"},{"nm":"Maria Elena Garcia Torres","ar":"FINANZAS Y SERVICIOS","dp":"CUENTAS POR PAGAR","ps":"Analista Cuentas por Pagar","em":"elena.garcia@bsg.global","tl":""},{"nm":"Erik Ovilla Jaimes","ar":"FINANZAS Y SERVICIOS","dp":"","ps":"Director Administracion y Finanzas","em":"erik.ovilla@bsg.global","tl":"5548487006"},{"nm":"Carlos Eduardo Garcia Villegas","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Jefe Informatica","em":"carlos.garcia@bsg.global","tl":"5548487008"},{"nm":"Sinhue Fernando Estrada Gaona","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Coordinador Soporte Operaciones","em":"sinhue.estrada@bsg.global","tl":"5548884579"},{"nm":"Joel Fernando Torres Barragan","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Analista Gestion Servicios","em":"fernando.torres@bsg.global","tl":""},{"nm":"Jose Leon Roman","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Analista Help Desk","em":"jose.leon@bsg.global","tl":""},{"nm":"Luis Enrique Zamora Campos","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Analista Help Desk","em":"luis.zamora@bsg.global","tl":""},{"nm":"Abigail Godinez Avila","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Analista Help Desk","em":"abigail.godinez@bsg.global","tl":""},{"nm":"Emmanuel Martinez del Valle","ar":"FINANZAS Y SERVICIOS","dp":"INFORMÁTICA","ps":"Analista Help Desk","em":"emmanuel.martinez@bsg.global","tl":""},{"nm":"Cesar Hugo Chavez Rodriguez","ar":"FINANZAS Y SERVICIOS","dp":"PREVENCION Y PERDIDAS","ps":"Encargado Inventarios","em":"hugo.chavez@bsg.global","tl":""},{"nm":"Juan Garcia Arango","ar":"FINANZAS Y SERVICIOS","dp":"PREVENCION Y PERDIDAS","ps":"Coordinador Seguridad Patrimonial e Inve","em":"juan.garcia@bsg.global","tl":"5610043254"},{"nm":"Carlos Alejandro Zacarias Ramirez","ar":"FINANZAS Y SERVICIOS","dp":"PREVENCION Y PERDIDAS","ps":"Coordinador Seguridad Patrimonial","em":"carlos.zacarias@bsg.global","tl":"5548487820"},{"nm":"Daniela Rebollo Horta","ar":"FINANZAS Y SERVICIOS","dp":"SEGURIDAD SOCIAL","ps":"Coordinador Seguridad Social","em":"daniela.rebollo@bsg.global","tl":"5550675708"},{"nm":"Nancy Paola Alvarez Romero","ar":"FINANZAS Y SERVICIOS","dp":"SEGURIDAD SOCIAL","ps":"Coordinador Cuentas por Pagar","em":"nancy.alvarez@bsg.global","tl":"5543578351"},{"nm":"Adriana Barranco Aguilar","ar":"FINANZAS Y SERVICIOS","dp":"SEGURIDAD SOCIAL","ps":"Analista Imss","em":"adriana.barranco@bsg.global","tl":""},{"nm":"Carlos Arturo Alvarez Garcia","ar":"FINANZAS Y SERVICIOS","dp":"TESORERIA","ps":"Analista Tesoreria","em":"carlos.alvarez@bsg.global","tl":"5579803496"},{"nm":"Axel Moises Hernandez Gonzalez","ar":"FINANZAS Y SERVICIOS","dp":"TESORERIA","ps":"Analista Tesoreria","em":"axel.hernandez@bsg.global","tl":"5591859070"},{"nm":"Diego Ramirez Escalona","ar":"FINANZAS Y SERVICIOS","dp":"TESORERIA","ps":"Analista Cobranza","em":"diego.ramirez@bsg.global","tl":"5534090816"},{"nm":"Miguel Resendiz Vilchis","ar":"FINANZAS Y SERVICIOS","dp":"TESORERIA","ps":"Analista Controlling","em":"miguel.resendiz@bsg.global","tl":""},{"nm":"Veronica Ramirez Aguirre","ar":"FINANZAS Y SERVICIOS","dp":"TESORERIA","ps":"Analista Cobranza","em":"veronica.ramirez@bsg.global","tl":"5533405369"},{"nm":"Cinthia Fabiola Hernandez Resendiz","ar":"FINANZAS Y SERVICIOS","dp":"TESORERIA","ps":"Coordinador Tesoreria y Cuentas por Cobr","em":"cinthia.hernandez@bsg.global","tl":"5548486980"},{"nm":"Laura Leslie Zarate Acosta","ar":"LOCACIONES","dp":"","ps":"Analista Contratos","em":"laura.zarate@bsg.global","tl":"5548487079"},{"nm":"Graciela Martinez-Decuir Cejudo","ar":"LOCACIONES","dp":"","ps":"Jefe Locaciones","em":"graciela.decuir@bsg.global","tl":"8114971360"},{"nm":"Mario Morales Cinto","ar":"LOCACIONES","dp":"","ps":"Analista Contratos","em":"mario.morales@bsg.global","tl":"5548486988"},{"nm":"Alma Alejandra Herrera Villarreal","ar":"OPERACIONES RETAIL","dp":"","ps":"Visual & Commercial District","em":"alma.herrera@bsg.global","tl":"8111930630"},{"nm":"Lizbeth Oregel Zamora","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D10","ps":"Visual & Commercial District","em":"lizbeth.oregel@bsg.global","tl":"5548487134"},{"nm":"Sara Paola Silva Vaca","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D11","ps":"Visual & Commercial District","em":"sara.silva@bsg.global","tl":"5533404702"},{"nm":"Patricia Gabriela Felix Garcia","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D12","ps":"Visual & Commercial District","em":"patricia.felix@bsg.global","tl":"5548487140"},{"nm":"Jhonatan Flores Piedra","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D13","ps":"Visual & Commercial District","em":"Jhonatan.flores@bsg.global","tl":"5569727943"},{"nm":"Berenice Blas Resendiz","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D14","ps":"Visual & Commercial District","em":"berenice.blas@bsg.global","tl":"5548487009"},{"nm":"Eder Joel Zozaya Marin","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D15","ps":"Visual & Commercial District","em":"eder.zozaya@bsg.global","tl":"5514412076"},{"nm":"Yosafat Ernesto Avila Hernandez","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D16","ps":"Visual & Commercial District","em":"yosafat.avila@bsg.global","tl":"5545205113"},{"nm":"Francisco Rene Lopez Valdes","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D20","ps":"Visual & Commercial District","em":"francisco.lopez@bsg.global","tl":"4151065804"},{"nm":"Alicia Carolina Chavez Garcia","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D21","ps":"Visual & Commercial District","em":"alicia.chavez@bsg.global","tl":"3319758769"},{"nm":"Daniela Rodriguez Valdez","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D22","ps":"Visual & Commercial District","em":"daniela.rodriguez@bsg.global","tl":"5548487036"},{"nm":"Ruth Lizbeth Miranda Romero","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D23","ps":"Visual & Commercial District","em":"ruth.miranda@bsg.global","tl":"9982624980"},{"nm":"Cesar Jimenez Pallares","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D24","ps":"Visual & Commercial District","em":"cesar.jimenez@bsg.global","tl":"4773508360"},{"nm":"Alexander Fernando Alcantara Cordova","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D25","ps":"Visual & Commercial District","em":"alexander.alcantara@bsg.global","tl":"5545159843"},{"nm":"Guieedani Wendoline Sanchez Castillo","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D26","ps":"Visual & Commercial District","em":"guieedani.sanchez@bsg.global","tl":"5550680086"},{"nm":"Stephania Sarahy Gutierrez Padilla","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL D27","ps":"Visual & Commercial District","em":"stephania.gutierrez@bsg.global","tl":"5545214050"},{"nm":"Alejandra Guerrero Sanchez","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL R1","ps":"Visual & Commercial Regional","em":"alejandra.guerrero@bsg.global","tl":"5548487004"},{"nm":"Leonardo Adrian Rocha Rubio","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL R2","ps":"Visual & Commercial Regional","em":"leonardo.rocha@bsg.global","tl":"5625715409"},{"nm":"Deni Sakay Centeno Ortiz","ar":"OPERACIONES RETAIL","dp":"OPERACIONES RETAIL R3","ps":"Visual & Commercial Regional","em":"deni.centeno@bsg.global","tl":"5548486913"},{"nm":"Oswaldo Thomas Ortiz Martinez","ar":"SUPPLY CHAIN","dp":"COMEX","ps":"Coordinador Comercio Exterior","em":"oswaldo.ortiz@bsg.global","tl":"5580809297"},{"nm":"Marlene Morales Hernandez","ar":"SUPPLY CHAIN","dp":"COMEX","ps":"Analista Comercio Exterior","em":"marlene.morales@bsg.global","tl":"5548487033"},{"nm":"Jose Abraham Mondragon Apodaca","ar":"SUPPLY CHAIN","dp":"LOGISTICA","ps":"Director Logistica Mx","em":"jose.mondragon@bsg.global","tl":"5548487049"}];
+
+const AREA_META = {
+  "DIRECCIÓN":                    { color:"#E0A800", icon:"🏢" },
+  "ARQUITECTURA Y MANTENIMIENTO": { color:"#1B4F72", icon:"🏗️" },
+  "BRAND MANAGEMENT":             { color:"#6C3483", icon:"🎨" },
+  "CAPITAL HUMANO":                { color:"#1E8449", icon:"👥" },
+  "CUSTOMER EXPERIENCE":          { color:"#D35400", icon:"⭐" },
+  "E-COMMERCE":                   { color:"#117A65", icon:"🛒" },
+  "FINANZAS Y SERVICIOS":         { color:"#1A5276", icon:"💼" },
+  "LOCACIONES":                   { color:"#784212", icon:"📍" },
+  "OPERACIONES RETAIL":           { color:"#4A235A", icon:"🏪" },
+  "SUPPLY CHAIN":                 { color:"#0E6655", icon:"🚚" }
+};
+
+const AREA_ORDER = [
+  "DIRECCIÓN","FINANZAS Y SERVICIOS","CAPITAL HUMANO","OPERACIONES RETAIL",
+  "BRAND MANAGEMENT","ARQUITECTURA Y MANTENIMIENTO","SUPPLY CHAIN","LOCACIONES",
+  "CUSTOMER EXPERIENCE","E-COMMERCE"
+];
+
+const mainEl = document.getElementById('mainContent');
+const filterBar = document.getElementById('filterBar');
+const searchInput = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearSearch');
+const emptyState = document.getElementById('empty-state');
+
+let activeArea = 'all';
+let query = '';
+
+function titleCase(s){
+  return s.split(' ').map(w => w.length <= 2 ? w.toLowerCase() : w.charAt(0)+w.slice(1).toLowerCase()).join(' ')
+    .replace(/^./, c => c.toUpperCase());
+}
+
+function initials(name){
+  const parts = name.trim().split(/\s+/);
+  const first = parts[0]?.[0] || '';
+  const last = parts.length > 1 ? parts[parts.length-1][0] : (parts[0]?.[1] || '');
+  return (first + last).toUpperCase();
+}
+
+function formatPhone(tl){
+  if(!tl) return '';
+  const d = tl.replace(/\D/g,'');
+  if(d.length === 10) return `${d.slice(0,2)} ${d.slice(2,6)} ${d.slice(6)}`;
+  return tl;
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function highlight(text, q){
+  if(!q) return escapeHtml(text);
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if(idx === -1) return escapeHtml(text);
+  return escapeHtml(text.slice(0,idx)) + '<mark>' + escapeHtml(text.slice(idx, idx+q.length)) + '</mark>' + escapeHtml(text.slice(idx+q.length));
+}
+
+function buildStats(){
+  document.getElementById('stat-total').textContent = DATA.length;
+  document.getElementById('stat-areas').textContent = new Set(DATA.map(d=>d.ar)).size;
+  document.getElementById('stat-phone').textContent = DATA.filter(d=>d.tl).length;
+}
+
+function buildFilterBar(){
+  const counts = {};
+  DATA.forEach(d => counts[d.ar] = (counts[d.ar]||0)+1);
+
+  const allBtn = document.createElement('button');
+  allBtn.className = 'filter-pill active';
+  allBtn.dataset.filter = 'all';
+  allBtn.innerHTML = `Todas las áreas <span class="n">${DATA.length}</span>`;
+  filterBar.appendChild(allBtn);
+
+  AREA_ORDER.filter(a => counts[a]).forEach(area => {
+    const meta = AREA_META[area];
+    const btn = document.createElement('button');
+    btn.className = 'filter-pill';
+    btn.dataset.filter = area;
+    btn.innerHTML = `${titleCase(area)} <span class="n">${counts[area]}</span>`;
+    filterBar.appendChild(btn);
+  });
+
+  filterBar.addEventListener('click', e => {
+    const pill = e.target.closest('.filter-pill');
+    if(!pill) return;
+    activeArea = pill.dataset.filter;
+    [...filterBar.children].forEach(p => p.classList.toggle('active', p === pill));
+    render();
+  });
+}
+
+function buildSections(){
+  const byArea = {};
+  DATA.forEach(d => (byArea[d.ar] = byArea[d.ar] || []).push(d));
+
+  AREA_ORDER.filter(a => byArea[a]).forEach(area => {
+    const meta = AREA_META[area];
+    const people = byArea[area];
+
+    const section = document.createElement('section');
+    section.className = 'area-section';
+    section.dataset.area = area;
+
+    section.innerHTML = `
+      <div class="area-header" style="border-left:5px solid ${meta.color}; background:linear-gradient(135deg, ${meta.color}18 0%, transparent 100%);">
+        <div class="area-title">
+          <span class="area-icon">${meta.icon}</span>
+          <h2 style="color:${meta.color}">${titleCase(area)}</h2>
+        </div>
+        <span class="badge" style="background:${meta.color}">${people.length} contactos</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Departamento</th>
+              <th>Rol</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    `;
+
+    const tbody = section.querySelector('tbody');
+    people.forEach(d => {
+      const tr = document.createElement('tr');
+      tr.className = 'contact-row';
+      tr.dataset.search = [d.nm, d.ps, d.dp || area, d.em, d.tl].join(' ').toLowerCase();
+
+      const phoneCell = d.tl
+        ? `<a class="contact-link" href="tel:+52${d.tl}">📞 ${formatPhone(d.tl)}</a>`
+        : `<span class="no-data">—</span>`;
+
+      tr.innerHTML = `
+        <td><span class="nombre">${d.nm}</span></td>
+        <td><span class="dept">${titleCase(d.dp || area)}</span></td>
+        <td><span class="rol">${d.ps}</span></td>
+        <td><a class="contact-link" href="mailto:${d.em}">✉️ ${d.em}</a></td>
+        <td>${phoneCell}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    mainEl.appendChild(section);
+  });
+}
+
+function render(){
+  const q = query.trim().toLowerCase();
+  let anySectionVisible = false;
+
+  document.querySelectorAll('.area-section').forEach(section => {
+    const area = section.dataset.area;
+    const areaMatch = activeArea === 'all' || activeArea === area;
+    if(!areaMatch){ section.classList.add('hidden'); return; }
+
+    let anyRowVisible = false;
+    section.querySelectorAll('.contact-row').forEach(row => {
+      const match = !q || row.dataset.search.includes(q);
+      row.classList.toggle('hidden', !match);
+      if(match) anyRowVisible = true;
+    });
+
+    section.classList.toggle('hidden', !anyRowVisible);
+    if(anyRowVisible) anySectionVisible = true;
+  });
+
+  emptyState.style.display = anySectionVisible ? 'none' : 'block';
+}
+
+buildStats();
+buildFilterBar();
+buildSections();
+render();
+
+searchInput.addEventListener('input', e => {
+  query = e.target.value;
+  clearBtn.style.display = query ? 'flex' : 'none';
+  render();
+});
+clearBtn.addEventListener('click', () => {
+  searchInput.value = '';
+  query = '';
+  clearBtn.style.display = 'none';
+  searchInput.focus();
+  render();
+});
+</script>
+</body>
+</html>
